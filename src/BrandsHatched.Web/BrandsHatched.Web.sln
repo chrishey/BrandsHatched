@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrandsHatched.Web", "BrandsHatched.Web.csproj", "{1E3BE3FD-EE40-474D-B5C1-95B0DB877E38}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D1A1699E-3024-4D9C-8B40-7066BC213045}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrandsHatched.CircuitBreaker", "..\BrandsHatched.CircuitBreaker\BrandsHatched.CircuitBreaker.csproj", "{3EE1D80D-549D-4779-8C1D-4A0BB0607FDB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E3BE3FD-EE40-474D-B5C1-95B0DB877E38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E3BE3FD-EE40-474D-B5C1-95B0DB877E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E3BE3FD-EE40-474D-B5C1-95B0DB877E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E3BE3FD-EE40-474D-B5C1-95B0DB877E38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EE1D80D-549D-4779-8C1D-4A0BB0607FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EE1D80D-549D-4779-8C1D-4A0BB0607FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EE1D80D-549D-4779-8C1D-4A0BB0607FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EE1D80D-549D-4779-8C1D-4A0BB0607FDB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
