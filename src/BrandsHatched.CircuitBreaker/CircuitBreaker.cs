@@ -40,6 +40,7 @@ namespace BrandsHatched.CircuitBreaker
 		    get { return _circuitBreakerStore.StateLastChanged; }
 	    }
 
+	  
 	    public void ExecuteAction(Action action)
 	    {
 			var policy = Policy.Handle<DumbServiceException>().CircuitBreaker(FailedCallThreshold, WaitTimeBeforeHalfOpen);
@@ -47,16 +48,16 @@ namespace BrandsHatched.CircuitBreaker
 		    try
 		    {
 			    policy.Execute(action);
-				if(IsOpen)
-					_circuitBreakerStore.Reset();
+			    if (IsOpen)
+				    _circuitBreakerStore.Reset();
 		    }
 		    catch (BrokenCircuitException exception)
 		    {
 			    _circuitBreakerStore.Trip(exception);
 		    }
-		    catch (DumbServiceException ex)
+		    catch (Exception exception)
 		    {
-			    _log.Log(ex.Message);
+				_log.Log(exception.Message);
 		    }
 	    }
 
