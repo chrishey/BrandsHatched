@@ -1,0 +1,7 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<BrandsHatched.Web.ViewModel.CircuitBreakerModel>
+<div>
+	@Model.State
+</div>
+<div>
+	@Model.LastStateChange.ToShortDateString()
+</div>

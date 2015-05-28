@@ -50,6 +50,9 @@
     <Compile Include="CircuitBreakerState.cs" />
     <Compile Include="ICircuitBreaker.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Service\DumbService.cs" />
+    <Compile Include="Service\IDumbService.cs" />
+    <Compile Include="Store\CircuitBreakerStore.cs" />
     <Compile Include="Store\ICircuitBreakerStore.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

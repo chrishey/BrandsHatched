@@ -1,20 +1,20 @@
-﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<BrandsHatched.Web.ViewModel.CircuitBreakerModel>
-@{
+﻿@{
 	Layout = null;
 }
 
 <!DOCTYPE html>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/home.js"></script>
 
 <html>
 <head>
 	<title>Home</title>
 </head>
 <body>
-	<div>
-		@Model.State
+	<div id="container">
 	</div>
-	<div>
-		@Model.LastStateChange.ToShortDateString()
-	</div>
+
+	<input type="button" id="SuccessRetry" class="triggerButton" />
+	<input type="button" id="FailureRetry" class="triggerButton" />
 </body>
 </html>

@@ -75,6 +75,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\home.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +86,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Views\Home.cshtml" />
+    <Content Include="Views\BreakerState.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -92,7 +94,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BrandsHatched.CircuitBreaker\BrandsHatched.CircuitBreaker.csproj">
+      <Project>{3ee1d80d-549d-4779-8c1d-4a0bb0607fdb}</Project>
+      <Name>BrandsHatched.CircuitBreaker</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

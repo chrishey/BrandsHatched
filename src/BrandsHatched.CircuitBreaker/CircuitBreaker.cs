@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Threading.Tasks;
-using BrandsHatched.CircuitBreaker.Logging;
 using BrandsHatched.CircuitBreaker.Store;
 using Polly;
 using Polly.CircuitBreaker;
@@ -25,6 +24,16 @@ namespace BrandsHatched.CircuitBreaker
 	    public bool IsClosed
 	    {
 		    get { return _circuitBreakerStore.CurrentState == CircuitBreakerState.Closed; }
+	    }
+
+	    public string State
+	    {
+		    get { return _circuitBreakerStore.CurrentState.ToString(); }
+	    }
+
+	    public DateTime StateChanged
+	    {
+		    get { return _circuitBreakerStore.StateLastChanged; }
 	    }
 
 	    public async void ExecuteAction(Func<Task> action)
