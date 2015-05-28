@@ -1,4 +1,4 @@
-﻿@inherits NancyRazorViewBase<BrandsHatched.Web.ViewModel.CircuitBreakerModel>
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<BrandsHatched.Web.ViewModel.CircuitBreakerModel>
 @{
 	Layout = null;
 }
@@ -10,8 +10,11 @@
 	<title>Home</title>
 </head>
 <body>
-<div>
-	  
-</div>
+	<div>
+		@Model.State
+	</div>
+	<div>
+		@Model.LastStateChange.ToShortDateString()
+	</div>
 </body>
 </html>
