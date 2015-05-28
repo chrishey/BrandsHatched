@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Threading.Tasks;
 using BrandsHatched.CircuitBreaker.Logging;
 using BrandsHatched.CircuitBreaker.Store;
@@ -10,12 +11,10 @@ namespace BrandsHatched.CircuitBreaker
     public class CircuitBreaker : ICircuitBreaker
     {
 	    private readonly ICircuitBreakerStore _circuitBreakerStore;
-	    private readonly ILog _log;
 
-	    public CircuitBreaker(ICircuitBreakerStore circuitBreakerStore, ILog log)
+	    public CircuitBreaker(ICircuitBreakerStore circuitBreakerStore)
 	    {
 		    _circuitBreakerStore = circuitBreakerStore;
-		    _log = log;
 	    }
 
 	    public bool IsOpen
@@ -28,28 +27,28 @@ namespace BrandsHatched.CircuitBreaker
 		    get { return _circuitBreakerStore.CurrentState == CircuitBreakerState.Closed; }
 	    }
 
-	    public void ExecuteAction<T>(Task action)
+	    public void ExecuteAction(Func<Task> action)
 	    {
 		    var policy = Policy.Handle<Exception>().CircuitBreakerAsync(FailedCallThreshold, WaitTimeBeforeHalfOpen);
 
 		    try
 		    {
-			    policy.ExecuteAsync(() => action);
+			    policy.ExecuteAsync(action);
 		    }
 		    catch (BrokenCircuitException exception)
 		    {
-			    _log.Log(exception.Message);
+			    _circuitBreakerStore.Trip(exception);
 		    }
 	    }
 
 	    public int FailedCallThreshold
 	    {
-		    get { throw new NotImplementedException(); }
+		    get { return Convert.ToInt32(ConfigurationManager.AppSettings["AllowedFailedCalls"]); }
 	    }
 
 	    public TimeSpan WaitTimeBeforeHalfOpen
 	    {
-		    get { throw new NotImplementedException(); }
+		    get { return TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManager.AppSettings["WaitTimeForHalfOpen"])); }
 	    }
     }
 }

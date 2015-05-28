@@ -7,7 +7,7 @@ namespace BrandsHatched.CircuitBreaker
 	{
 		bool IsOpen { get; }
 		bool IsClosed { get; }
-		void ExecuteAction<T>(Task action);
+		void ExecuteAction(Func<Task> action);
 		int FailedCallThreshold { get; }
 		TimeSpan WaitTimeBeforeHalfOpen { get; }
 	}
