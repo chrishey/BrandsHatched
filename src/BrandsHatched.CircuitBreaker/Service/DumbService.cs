@@ -9,7 +9,13 @@ namespace BrandsHatched.CircuitBreaker.Service
 			if (successful)
 				return;
 
-			throw new Exception("Something went wrong!!!");
+			throw new DumbServiceException("Something went wrong!!!!!!!!!");
 		}
+	}
+
+	public class DumbServiceException : Exception
+	{
+		public DumbServiceException(string message) : base(message)
+		{}
 	}
 }

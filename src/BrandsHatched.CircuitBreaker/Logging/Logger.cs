@@ -6,7 +6,7 @@ namespace BrandsHatched.CircuitBreaker.Logging
 	{
 		public void Log(string message)
 		{
-			File.AppendAllText(@"C:\temp\circuitbreaker.txt", message);
+			File.AppendAllText(@"C:\temp\circuitbreaker.txt", message + @"\r\n");
 		}
 	}
 }

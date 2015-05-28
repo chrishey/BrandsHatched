@@ -3,18 +3,18 @@
 }
 
 <!DOCTYPE html>
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="~/Scripts/home.js"></script>
-
 <html>
 <head>
 	<title>Home</title>
 </head>
 <body>
-	<div id="container">
-	</div>
+<div id="container">
+</div>
 
-	<input type="button" id="SuccessRetry" class="triggerButton" />
-	<input type="button" id="FailureRetry" class="triggerButton" />
+<input type="button" id="SuccessRetry" class="triggerButton" value="Trigger Success"/>
+<input type="button" id="FailureRetry" class="triggerButton" value="Trigger Failure"/>
 </body>
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="@Url.Content("~/Content/home.js")"></script>
 </html>
+

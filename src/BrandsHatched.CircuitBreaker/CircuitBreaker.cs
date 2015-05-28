@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.Threading.Tasks;
+using BrandsHatched.CircuitBreaker.Logging;
+using BrandsHatched.CircuitBreaker.Service;
 using BrandsHatched.CircuitBreaker.Store;
 using Polly;
 using Polly.CircuitBreaker;
@@ -10,10 +12,12 @@ namespace BrandsHatched.CircuitBreaker
     public class CircuitBreaker : ICircuitBreaker
     {
 	    private readonly ICircuitBreakerStore _circuitBreakerStore;
+	    private readonly ILog _log;
 
-	    public CircuitBreaker(ICircuitBreakerStore circuitBreakerStore)
+	    public CircuitBreaker(ICircuitBreakerStore circuitBreakerStore, ILog log)
 	    {
 		    _circuitBreakerStore = circuitBreakerStore;
+		    _log = log;
 	    }
 
 	    public bool IsOpen
@@ -36,17 +40,23 @@ namespace BrandsHatched.CircuitBreaker
 		    get { return _circuitBreakerStore.StateLastChanged; }
 	    }
 
-	    public async void ExecuteAction(Func<Task> action)
+	    public void ExecuteAction(Action action)
 	    {
-		    var policy = Policy.Handle<Exception>().CircuitBreakerAsync(FailedCallThreshold, WaitTimeBeforeHalfOpen);
+			var policy = Policy.Handle<DumbServiceException>().CircuitBreaker(FailedCallThreshold, WaitTimeBeforeHalfOpen);
 
 		    try
 		    {
-			    await policy.ExecuteAsync(action);
+			    policy.Execute(action);
+				if(IsOpen)
+					_circuitBreakerStore.Reset();
 		    }
 		    catch (BrokenCircuitException exception)
 		    {
 			    _circuitBreakerStore.Trip(exception);
+		    }
+		    catch (DumbServiceException ex)
+		    {
+			    _log.Log(ex.Message);
 		    }
 	    }
 
