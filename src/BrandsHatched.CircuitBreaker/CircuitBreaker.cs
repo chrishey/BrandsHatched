@@ -27,13 +27,13 @@ namespace BrandsHatched.CircuitBreaker
 		    get { return _circuitBreakerStore.CurrentState == CircuitBreakerState.Closed; }
 	    }
 
-	    public void ExecuteAction(Func<Task> action)
+	    public async void ExecuteAction(Func<Task> action)
 	    {
 		    var policy = Policy.Handle<Exception>().CircuitBreakerAsync(FailedCallThreshold, WaitTimeBeforeHalfOpen);
 
 		    try
 		    {
-			    policy.ExecuteAsync(action);
+			    await policy.ExecuteAsync(action);
 		    }
 		    catch (BrokenCircuitException exception)
 		    {
