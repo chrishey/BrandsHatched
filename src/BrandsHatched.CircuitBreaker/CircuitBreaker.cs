@@ -43,11 +43,11 @@ namespace BrandsHatched.CircuitBreaker
 	    }
 
 	  
-	    public async void ExecuteAction(Func<Task> action)
+	    public void ExecuteAction(Action action)
 	    {
 		    try
 		    {
-			    await _policy.ExecuteAsync(action);
+			    _policy.Execute(action);
 			    if (IsOpen)
 				    _circuitBreakerStore.Reset();
 		    }
