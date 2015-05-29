@@ -25,20 +25,20 @@ namespace BrandsHatched.Web.Modules
 		private dynamic GetTriggerSuccess()
 		{
 			var model = new CircuitBreakerModel();
-			//var task = new Func<Task>(async () => _dumbService.DoSomething(true));
-			_circuitBreaker.ExecuteAction(() => _dumbService.DoSomething(true));
+			var task = new Func<Task>(async () => _dumbService.DoSomething(true));
+			_circuitBreaker.ExecuteAction(task);
 			model.State = _circuitBreaker.State;
-			model.LastStateChange = _circuitBreaker.StateChanged;
+			model.LastStateChange = _circuitBreaker.StateChanged.ToString("F");
 			return View["BreakerState", model];
 		}
 
 		private dynamic GetTriggerFailure()
 		{
 			var model = new CircuitBreakerModel();
-			//var task = new Func<Task>(() => _dumbService.DoSomething(false));
-			_circuitBreaker.ExecuteAction(() => _dumbService.DoSomething(false));
+			var task = new Func<Task>(async () => _dumbService.DoSomething(false));
+			_circuitBreaker.ExecuteAction(task);
 			model.State = _circuitBreaker.State;
-			model.LastStateChange = _circuitBreaker.StateChanged;
+			model.LastStateChange = _circuitBreaker.StateChanged.ToString("F");
 			return View["BreakerState", model];
 		}
 
