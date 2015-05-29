@@ -13,13 +13,11 @@ namespace BrandsHatched.CircuitBreaker
     {
 	    private readonly ICircuitBreakerStore _circuitBreakerStore;
 	    private readonly ILog _log;
-	    private readonly Policy _policy;
 
 	    public CircuitBreaker(ICircuitBreakerStore circuitBreakerStore, ILog log)
 	    {
 		    _circuitBreakerStore = circuitBreakerStore;
 		    _log = log;
-			_policy = Policy.Handle<DumbServiceException>().CircuitBreaker(FailedCallThreshold, WaitTimeBeforeHalfOpen);
 	    }
 
 	    public bool IsOpen
@@ -45,9 +43,11 @@ namespace BrandsHatched.CircuitBreaker
 	  
 	    public void ExecuteAction(Action action)
 	    {
+			var policy = Policy.Handle<DumbServiceException>().CircuitBreaker(FailedCallThreshold, WaitTimeBeforeHalfOpen);
+
 		    try
 		    {
-			    _policy.Execute(action);
+			    policy.Execute(action);
 			    if (IsOpen)
 				    _circuitBreakerStore.Reset();
 		    }
