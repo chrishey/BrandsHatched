@@ -53,6 +53,7 @@
     <Compile Include="Service\DumbService.cs" />
     <Compile Include="Service\IDumbService.cs" />
     <Compile Include="Store\CircuitBreakerStore.cs" />
+    <Compile Include="Store\IBrokenCircuits.cs" />
     <Compile Include="Store\ICircuitBreakerStore.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
