@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BrandsHatched.CircuitBreaker;
+using BrandsHatched.CircuitBreaker.Configuration;
 using BrandsHatched.CircuitBreaker.Service;
 using BrandsHatched.Web.ViewModel;
 using Nancy;
@@ -11,11 +12,15 @@ namespace BrandsHatched.Web.Modules
 	{
 		private readonly ICircuitBreaker _circuitBreaker;
 		private readonly IDumbService _dumbService;
+		private readonly IConfig _config;
 
-		public HomeModule(ICircuitBreaker circuitBreaker, IDumbService dumbService)
+		public HomeModule(ICircuitBreaker circuitBreaker, IDumbService dumbService, IConfig config)
 		{
 			_circuitBreaker = circuitBreaker;
 			_dumbService = dumbService;
+			_config = config;
+
+			_circuitBreaker.Configure(typeof(DumbServiceException), config.Get(SettingValue.AllowedFailedCalls, 3), config.Get(SettingValue.WaitTimeForHalfOpen, 1));
 
 			Get["/"] = _ => GetCurrentState();
 			Get["/success"] = _ => GetTriggerSuccess();

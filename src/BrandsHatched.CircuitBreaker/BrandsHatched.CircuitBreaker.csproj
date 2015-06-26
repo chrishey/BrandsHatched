@@ -48,6 +48,9 @@
   <ItemGroup>
     <Compile Include="CircuitBreaker.cs" />
     <Compile Include="CircuitBreakerState.cs" />
+    <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\IConfig.cs" />
+    <Compile Include="Configuration\SettingValue.cs" />
     <Compile Include="ICircuitBreaker.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Service\DumbService.cs" />

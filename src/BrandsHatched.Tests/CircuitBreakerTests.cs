@@ -8,15 +8,13 @@ namespace BrandsHatched.Tests
 {
 	public class CircuitBreakerTests
 	{
-		private ICircuitBreakerStore _circuitBreakerStore;
-		private IBrokenCircuits _brokenCircuits;
-		private ILog _log;
-		private IDumbService _dumbService;
+		private readonly ICircuitBreakerStore _circuitBreakerStore;
+		private readonly ILog _log;
+		private readonly IDumbService _dumbService;
 
 		public CircuitBreakerTests()
 		{
 			_circuitBreakerStore = Substitute.For<ICircuitBreakerStore>();
-			_brokenCircuits = Substitute.For<IBrokenCircuits>();
 			_log = Substitute.For<ILog>();
 			_dumbService = Substitute.For<IDumbService>();
 		}
@@ -26,6 +24,7 @@ namespace BrandsHatched.Tests
 		{
 			// Given
 			var itemUnderTest = new CircuitBreaker.CircuitBreaker(_circuitBreakerStore, _log);
+			itemUnderTest.Configure(typeof(DumbServiceException), 1, 1);
 			
 
 			// When

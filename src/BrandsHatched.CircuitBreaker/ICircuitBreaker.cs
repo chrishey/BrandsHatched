@@ -4,6 +4,7 @@ namespace BrandsHatched.CircuitBreaker
 {
 	public interface ICircuitBreaker
 	{
+		void Configure(Type exceptionToHandle, int failureThreshold, int waitTimeInMinutes);
 		bool IsOpen { get; }
 		bool IsClosed { get; }
 		string State { get; }

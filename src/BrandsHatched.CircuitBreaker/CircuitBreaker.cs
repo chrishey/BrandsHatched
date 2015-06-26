@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using BrandsHatched.CircuitBreaker.Configuration;
 using BrandsHatched.CircuitBreaker.Logging;
 using BrandsHatched.CircuitBreaker.Service;
 using BrandsHatched.CircuitBreaker.Store;
@@ -13,12 +14,22 @@ namespace BrandsHatched.CircuitBreaker
 	    private readonly ICircuitBreakerStore _circuitBreakerStore;
 	    private readonly ILog _log;
 	    private readonly Policy _policy;
+	    private Type _exceptionToHandle;
+	    private int _waitTimeInMinutes;
+	    private int _failureThreshold;
 
 	    public CircuitBreaker(ICircuitBreakerStore circuitBreakerStore, ILog log)
 	    {
 		    _circuitBreakerStore = circuitBreakerStore;
 		    _log = log;
 		    _policy = Policy.Handle<DumbServiceException>().CircuitBreaker(FailedCallThreshold, WaitTimeBeforeHalfOpen);
+	    }
+
+	    public void Configure(Type exceptionToHandle, int failureThreshold, int waitTimeInMinutes)
+	    {
+		    _exceptionToHandle = exceptionToHandle;
+		    _failureThreshold = failureThreshold;
+		    _waitTimeInMinutes = waitTimeInMinutes;
 	    }
 
 	    public bool IsOpen
@@ -65,12 +76,12 @@ namespace BrandsHatched.CircuitBreaker
 
 	    public int FailedCallThreshold
 	    {
-		    get { return Convert.ToInt32(ConfigurationManager.AppSettings["AllowedFailedCalls"]); }
+		    get { return _failureThreshold; }
 	    }
 
 	    public TimeSpan WaitTimeBeforeHalfOpen
 	    {
-		    get { return TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManager.AppSettings["WaitTimeForHalfOpen"])); }
+		    get { return TimeSpan.FromMinutes(_waitTimeInMinutes); }
 	    }
     }
 }
