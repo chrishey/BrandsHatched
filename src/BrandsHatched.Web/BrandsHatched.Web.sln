@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D1A169
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrandsHatched.CircuitBreaker", "..\BrandsHatched.CircuitBreaker\BrandsHatched.CircuitBreaker.csproj", "{3EE1D80D-549D-4779-8C1D-4A0BB0607FDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrandsHatched.Tests", "..\BrandsHatched.Tests\BrandsHatched.Tests.csproj", "{ED3A9243-7754-49F0-A5F9-534F1430AABB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{3EE1D80D-549D-4779-8C1D-4A0BB0607FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EE1D80D-549D-4779-8C1D-4A0BB0607FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EE1D80D-549D-4779-8C1D-4A0BB0607FDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED3A9243-7754-49F0-A5F9-534F1430AABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED3A9243-7754-49F0-A5F9-534F1430AABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED3A9243-7754-49F0-A5F9-534F1430AABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED3A9243-7754-49F0-A5F9-534F1430AABB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
