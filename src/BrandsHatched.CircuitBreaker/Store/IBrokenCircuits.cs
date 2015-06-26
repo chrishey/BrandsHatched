@@ -11,7 +11,7 @@ namespace BrandsHatched.CircuitBreaker.Store
 
 	public class BrokenCircuits : IBrokenCircuits
 	{
-		private Dictionary<string, object> _brokenCircuits;
+		private readonly Dictionary<string, object> _brokenCircuits;
 
 		public BrokenCircuits()
 		{
@@ -20,17 +20,17 @@ namespace BrandsHatched.CircuitBreaker.Store
 
 		public void AddBrokenCircuit(string key, object value)
 		{
-			throw new System.NotImplementedException();
+			_brokenCircuits.Add(key, value);
 		}
 
 		public void RemoveBrokenCircuit(string key)
 		{
-			throw new System.NotImplementedException();
+			_brokenCircuits.Remove(key);
 		}
 
 		public bool CircuitBrokenForUser(string key)
 		{
-			throw new System.NotImplementedException();
+			return _brokenCircuits.ContainsKey(key);
 		}
 	}
 }
