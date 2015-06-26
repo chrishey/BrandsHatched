@@ -6,10 +6,12 @@ namespace BrandsHatched.CircuitBreaker.Store
 	public class CircuitBreakerStore : ICircuitBreakerStore
 	{
 		private readonly ILog _log;
+		private readonly IBrokenCircuits _brokenCircuits;
 
-		public CircuitBreakerStore(ILog log)
+		public CircuitBreakerStore(ILog log, IBrokenCircuits brokenCircuits)
 		{
 			_log = log;
+			_brokenCircuits = brokenCircuits;
 			_currentState = CircuitBreakerState.Closed;
 		}
 
@@ -41,6 +43,11 @@ namespace BrandsHatched.CircuitBreaker.Store
 			_currentState = CircuitBreakerState.Closed;
 			_stateLastChanged = DateTime.Now;
 			_log.Log(string.Format("Circuit was {0} at {1}", _currentState, _stateLastChanged));
+		}
+
+		public IBrokenCircuits BrokenCircuits
+		{
+			get { return _brokenCircuits; }
 		}
 	}
 }

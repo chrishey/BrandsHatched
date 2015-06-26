@@ -25,7 +25,7 @@ namespace BrandsHatched.Web.Modules
 		private dynamic GetTriggerSuccess()
 		{
 			var model = new CircuitBreakerModel();
-			_circuitBreaker.ExecuteAction(()=>_dumbService.DoSomething(true));
+			_circuitBreaker.ExecuteAction(()=>_dumbService.DoSomething(true), "a9f5ca08523c494cb0f8965dcd9b4e1d");
 			model.State = _circuitBreaker.State;
 			model.LastStateChange = _circuitBreaker.StateChanged.ToString("F");
 			return View["BreakerState", model];
@@ -34,7 +34,7 @@ namespace BrandsHatched.Web.Modules
 		private dynamic GetTriggerFailure()
 		{
 			var model = new CircuitBreakerModel();
-			_circuitBreaker.ExecuteAction(()=>_dumbService.DoSomething(false));
+			_circuitBreaker.ExecuteAction(()=>_dumbService.DoSomething(false), "323bf897a90347f38dbd88374fc91d4b");
 			model.State = _circuitBreaker.State;
 			model.LastStateChange = _circuitBreaker.StateChanged.ToString("F");
 			return View["BreakerState", model];

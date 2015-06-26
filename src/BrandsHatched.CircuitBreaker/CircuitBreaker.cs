@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Threading.Tasks;
 using BrandsHatched.CircuitBreaker.Logging;
 using BrandsHatched.CircuitBreaker.Service;
 using BrandsHatched.CircuitBreaker.Store;
@@ -19,7 +18,7 @@ namespace BrandsHatched.CircuitBreaker
 	    {
 		    _circuitBreakerStore = circuitBreakerStore;
 		    _log = log;
-			_policy = Policy.Handle<DumbServiceException>().CircuitBreaker(FailedCallThreshold, WaitTimeBeforeHalfOpen);
+		    _policy = Policy.Handle<DumbServiceException>().CircuitBreaker(FailedCallThreshold, WaitTimeBeforeHalfOpen);
 	    }
 
 	    public bool IsOpen
@@ -43,8 +42,11 @@ namespace BrandsHatched.CircuitBreaker
 	    }
 
 	  
-	    public void ExecuteAction(Action action)
+	    public void ExecuteAction(Action action, string key)
 	    {
+		    if (_circuitBreakerStore.BrokenCircuits.CircuitBrokenForUser(key))
+			    return;
+
 		    try
 		    {
 			    _policy.Execute(action);

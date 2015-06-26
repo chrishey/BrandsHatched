@@ -8,5 +8,7 @@ namespace BrandsHatched.CircuitBreaker.Store
 		DateTime StateLastChanged { get; }
 		void Trip(Exception exception);
 		void Reset();
+
+		IBrokenCircuits BrokenCircuits { get; }
 	}
 }

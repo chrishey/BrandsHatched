@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace BrandsHatched.CircuitBreaker
 {
@@ -9,7 +8,7 @@ namespace BrandsHatched.CircuitBreaker
 		bool IsClosed { get; }
 		string State { get; }
 		DateTime StateChanged { get; }
-		void ExecuteAction(Action action);
+		void ExecuteAction(Action action, string key);
 		int FailedCallThreshold { get; }
 		TimeSpan WaitTimeBeforeHalfOpen { get; }
 	}
