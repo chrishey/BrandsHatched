@@ -110,6 +110,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CircuitBreakerAttribute.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -131,11 +133,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BrandsHatched.CircuitBreaker\BrandsHatched.CircuitBreaker.csproj">
+      <Project>{3ee1d80d-549d-4779-8c1d-4a0bb0607fdb}</Project>
+      <Name>BrandsHatched.CircuitBreaker</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
