@@ -19,8 +19,10 @@ namespace BrandsHatched.Tests
 			_dumbService = Substitute.For<IDumbService>();
 		}
 
-		[Fact]
-		public void WhenFailedCallsThresholdIsHitCircuitBreaks()
+		[Theory]
+		[InlineData(false)]
+		[InlineData(true)]
+		public void WhenFailedCallsThresholdIsHitCircuitBreaks(bool successfulCall)
 		{
 			// Given
 			var itemUnderTest = new CircuitBreaker.CircuitBreaker(_circuitBreakerStore, _log);
@@ -28,10 +30,10 @@ namespace BrandsHatched.Tests
 			
 
 			// When
-			itemUnderTest.ExecuteAction(()=>_dumbService.DoSomething(false), "435b817a48dd46b78082330349906414");
+			itemUnderTest.ExecuteAction(()=>_dumbService.DoSomething(successfulCall), "435b817a48dd46b78082330349906414");
 
 			// Then
-			Assert.True(itemUnderTest.IsOpen);
+			Assert.True(successfulCall ? itemUnderTest.IsClosed : itemUnderTest.IsOpen);
 		}
 	}
 }
