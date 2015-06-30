@@ -17,23 +17,20 @@ namespace BrandsHatched.Tests
 			_circuitBreakerStore = Substitute.For<ICircuitBreakerStore>();
 			_log = Substitute.For<ILog>();
 			_dumbService = Substitute.For<IDumbService>();
+			_dumbService.When(x=>x.DoSomething(false)).Throw(new DumbServiceException("Kaboom!!!"));
 		}
 
-		[Theory]
-		[InlineData(false)]
-		[InlineData(true)]
-		public void WhenFailedCallsThresholdIsHitCircuitBreaks(bool successfulCall)
+		[Fact]
+		public void WhenFailedCallsThresholdIsHitCircuitBreaks()
 		{
-			// Given
 			var itemUnderTest = new CircuitBreaker.CircuitBreaker(_circuitBreakerStore, _log);
 			itemUnderTest.Configure(typeof(DumbServiceException), 1, 1);
 			
+			itemUnderTest.ExecuteAction(()=>_dumbService.DoSomething(true), "435b817a48dd46b78082330349906414");
+			Assert.True(itemUnderTest.IsClosed);
 
-			// When
-			itemUnderTest.ExecuteAction(()=>_dumbService.DoSomething(successfulCall), "435b817a48dd46b78082330349906414");
-
-			// Then
-			Assert.True(successfulCall ? itemUnderTest.IsClosed : itemUnderTest.IsOpen);
+			itemUnderTest.ExecuteAction(()=>_dumbService.DoSomething(false), "21af124e242c415bb8f89b4512aaef4e");
+			Assert.True(itemUnderTest.IsOpen);
 		}
 	}
 }
