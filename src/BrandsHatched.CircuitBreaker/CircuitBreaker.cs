@@ -15,13 +15,14 @@ namespace BrandsHatched.CircuitBreaker
 	    private readonly ILog _log;
 	    private Policy _policy;
 	    private Type _exceptionToHandle;
-	    private int _waitTimeInMinutes;
-	    private int _failureThreshold;
+	    private int _waitTimeInMinutes = 1;
+	    private int _failureThreshold = 3;
 
 	    public CircuitBreaker(ICircuitBreakerStore circuitBreakerStore, ILog log)
 	    {
 		    _circuitBreakerStore = circuitBreakerStore;
 		    _log = log;
+			_policy = Policy.Handle<DumbServiceException>().CircuitBreaker(FailedCallThreshold, WaitTimeBeforeHalfOpen);
 	    }
 
 	    public void Configure(Type exceptionToHandle, int failureThreshold, int waitTimeInMinutes)
@@ -29,7 +30,6 @@ namespace BrandsHatched.CircuitBreaker
 			_exceptionToHandle = exceptionToHandle;
 			_failureThreshold = failureThreshold;
 			_waitTimeInMinutes = waitTimeInMinutes;
-			_policy = Policy.Handle<DumbServiceException>().CircuitBreaker(FailedCallThreshold, WaitTimeBeforeHalfOpen);
 	    }
 
 	    public bool IsOpen
