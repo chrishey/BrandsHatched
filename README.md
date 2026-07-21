@@ -45,3 +45,16 @@ src/
    - First 2 failures trip the circuit; subsequent requests are rejected until 1 minute elapses.
 
 State and timestamp are logged to `C:\temp\circuitbreaker.txt` and displayed on screen after each action.
+
+## Configuration
+
+The circuit breaker behavior is controlled by two settings in `Web.config` (in the `<appSettings>` section):
+
+- **`AllowedFailedCalls`** (default: `2`) — Number of consecutive failures required to trip the circuit from Closed → Open
+- **`WaitTimeForHalfOpen`** (default: `1`) — Duration in minutes the circuit stays Open before transitioning to HalfOpen to test recovery
+
+These values are read by the `CircuitBreaker` class and passed to the Polly resilience library to configure its circuit breaker policy.
+
+## Repository
+
+https://github.com/chrishey/BrandsHatched
